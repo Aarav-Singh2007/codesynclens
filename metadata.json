@@ -1,0 +1,8 @@
+{
+  "name": " CodeLens nit",
+  "description": "AI Code Review \u0026 Vulnerability Detection Agent. Finds bugs, security vulnerabilities, and code smells with intelligent evidence-backed analysis and suggested fixes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
