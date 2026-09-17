@@ -1,6 +1,7 @@
 import { CapabilityProviderInfo, FindingCategory } from '../types';
 import { ExternalCapabilityProvider } from './providers/externalProvider';
 import { SkylosAdapter } from './providers/skylosAdapter';
+import { securityValidationService } from './securityValidationService';
 
 export interface RegisteredCapability {
   id: FindingCategory | 'FIX_GENERATION' | 'VERIFICATION' | 'AI_EXPLANATION';
@@ -39,10 +40,11 @@ class CapabilityRegistry {
     return [
       {
         id: 'SECURITY',
-        title: 'Security Vulnerability Detection',
-        description: 'Detects injection attacks, unsanitized inputs, weak cryptography, and unsafe execution.',
+        title: 'Security Vulnerability Detection & Validation',
+        description: 'Detects injection attacks, unsanitized inputs, weak cryptography, unsafe execution, and web application exposures.',
         providers: [
           { id: 'builtin-security', name: 'CodeLens Security Analyzer', isPrimary: true, type: 'BUILTIN' },
+          { id: 'deep-eye', name: 'Deep Eye Security Engine (v1.4.0)', isPrimary: false, type: 'EXTERNAL' },
           { id: 'skylos', name: 'Skylos Analyzer', isPrimary: false, type: 'EXTERNAL' }
         ]
       },
@@ -167,6 +169,23 @@ class CapabilityRegistry {
     ];
 
     const externalInfos: CapabilityProviderInfo[] = [];
+    try {
+      const deepEyeHealth = await securityValidationService.checkHealth();
+      builtin.push({
+        id: 'deep-eye',
+        name: 'Deep Eye Security Engine',
+        category: 'Dynamic Vulnerability Audit & DAST',
+        capabilities: ['SECURITY'],
+        status: deepEyeHealth.available ? 'AVAILABLE' : 'UNAVAILABLE',
+        version: deepEyeHealth.engineVersion || '1.4.0 (Hanzou)',
+        isExternal: true,
+        description: `Open-source AI-driven security validation engine for authorized targets. ${deepEyeHealth.message}`,
+        supportedLanguages: ['web', 'http', 'api', 'json']
+      });
+    } catch {
+      // ignore
+    }
+
     for (const provider of this.externalProviders.values()) {
       const meta = provider.getMetadata();
       const availability = await provider.checkAvailability();

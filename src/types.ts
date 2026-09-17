@@ -110,3 +110,49 @@ export interface FileItem {
   content: string;
   language?: string;
 }
+
+export interface SecurityValidationFinding {
+  id: string;
+  type: string;
+  severity: FindingSeverity;
+  url: string;
+  evidence: string;
+  description: string;
+  remediation: string;
+  parameter?: string;
+  payload?: string;
+  fingerprint?: string;
+  timestamp?: string;
+  aiExplanation?: string;
+}
+
+export interface SecurityValidationSummary {
+  targetUrl: string;
+  scanMode: 'quick' | 'standard' | 'full';
+  totalFindings: number;
+  criticalCount: number;
+  highCount: number;
+  mediumCount: number;
+  lowCount: number;
+  infoCount: number;
+  urlsCrawled: number;
+  durationMs: number;
+  timestamp: string;
+  engineVersion: string;
+  stateBreakdown?: Record<string, { total: number; success: number; failed: number }>;
+}
+
+export interface SecurityValidationSession {
+  id: string;
+  targetUrl: string;
+  authorized: boolean;
+  status: 'IDLE' | 'STARTING' | 'SCANNING' | 'GENERATING_REPORT' | 'COMPLETED' | 'FAILED';
+  currentPhase?: string;
+  progressPercent?: number;
+  findings: SecurityValidationFinding[];
+  summary?: SecurityValidationSummary;
+  rawJsonPath?: string;
+  error?: string;
+  logs: string[];
+}
+

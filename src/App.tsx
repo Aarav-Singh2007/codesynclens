@@ -9,6 +9,7 @@ import { SummaryCard } from './components/SummaryCard';
 import { FindingsList } from './components/FindingsList';
 import { FindingDetail } from './components/FindingDetail';
 import { IntegrationsModal } from './components/IntegrationsModal';
+import { SecurityValidationView } from './components/SecurityValidationView';
 import { ArrowLeft, RefreshCw, CheckCircle2 } from 'lucide-react';
 
 interface Stage {
@@ -28,6 +29,7 @@ const DEFAULT_STAGES: Stage[] = [
 ];
 
 export default function App() {
+  const [activeView, setActiveView] = useState<'code' | 'security'>('code');
   const [session, setSession] = useState<AnalysisSession | null>(null);
   const [isInputModalOpen, setIsInputModalOpen] = useState(false);
   const [initialInputMethod, setInitialInputMethod] = useState<'GITHUB' | 'UPLOAD' | 'PASTE'>('GITHUB');
@@ -246,18 +248,26 @@ export default function App() {
       {/* Top Header */}
       <Header
         onNewAnalysis={() => {
+          setActiveView('code');
           setInitialInputMethod('GITHUB');
           setIsInputModalOpen(true);
         }}
         onOpenIntegrations={() => setIsIntegrationsModalOpen(true)}
-        onLoadDemo={handleLoadDemo}
+        onLoadDemo={() => {
+          setActiveView('code');
+          handleLoadDemo();
+        }}
         analysisMode={session?.summary.analysisMode}
         hasActiveProject={Boolean(session)}
+        activeView={activeView}
+        onSelectView={(v) => setActiveView(v)}
       />
 
       {/* Main Content Area */}
       <main className="flex-1">
-        {isAnalyzing ? (
+        {activeView === 'security' ? (
+          <SecurityValidationView />
+        ) : isAnalyzing ? (
           <AnalysisProgress
             currentStage="Analyzing source code"
             stages={stages}
@@ -270,6 +280,7 @@ export default function App() {
               setIsInputModalOpen(true);
             }}
             onLoadDemo={handleLoadDemo}
+            onOpenSecurityValidation={() => setActiveView('security')}
           />
         ) : (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">

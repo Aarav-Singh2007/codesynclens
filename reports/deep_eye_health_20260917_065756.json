@@ -1,0 +1,132 @@
+{
+  "target": "http://127.0.0.1:3000/api/health",
+  "start_time": "2026-09-17T06:57:56.445421",
+  "config": {
+    "depth": 1,
+    "threads": 4,
+    "recon_enabled": false,
+    "scan_mode": "quick",
+    "browser_enabled": false,
+    "screenshot_enabled": false,
+    "subdomain_scanning": false
+  },
+  "urls_crawled": 1,
+  "discovered_urls": [
+    "http://127.0.0.1:3000/api/health"
+  ],
+  "vulnerabilities": [
+    {
+      "type": "Security Misconfiguration",
+      "severity": "low",
+      "url": "http://127.0.0.1:3000/api/health",
+      "evidence": "Missing header: X-Frame-Options",
+      "description": "Clickjacking protection missing",
+      "remediation": "Add X-Frame-Options header to all responses",
+      "fingerprint": "a476229bf9fd91d0"
+    },
+    {
+      "type": "Security Misconfiguration",
+      "severity": "low",
+      "url": "http://127.0.0.1:3000/api/health",
+      "evidence": "Missing header: X-Content-Type-Options",
+      "description": "MIME sniffing protection missing",
+      "remediation": "Add X-Content-Type-Options header to all responses",
+      "fingerprint": "1dc0d355f160710e"
+    },
+    {
+      "type": "Security Misconfiguration",
+      "severity": "low",
+      "url": "http://127.0.0.1:3000/api/health",
+      "evidence": "Missing header: Strict-Transport-Security",
+      "description": "HSTS not enforced",
+      "remediation": "Add Strict-Transport-Security header to all responses",
+      "fingerprint": "56815c88e2299177"
+    },
+    {
+      "type": "Security Misconfiguration",
+      "severity": "low",
+      "url": "http://127.0.0.1:3000/api/health",
+      "evidence": "Missing header: Content-Security-Policy",
+      "description": "CSP not implemented",
+      "remediation": "Add Content-Security-Policy header to all responses",
+      "fingerprint": "5843aad341d2b4d4"
+    },
+    {
+      "type": "Security Misconfiguration",
+      "severity": "low",
+      "url": "http://127.0.0.1:3000/api/health",
+      "evidence": "Missing header: X-XSS-Protection",
+      "description": "XSS protection header missing",
+      "remediation": "Add X-XSS-Protection header to all responses",
+      "fingerprint": "aa682ec55e14f8ed"
+    },
+    {
+      "type": "Sensitive Data Exposure",
+      "severity": "medium",
+      "url": "http://127.0.0.1:3000/api/health",
+      "evidence": "Data transmitted over unencrypted connection",
+      "description": "Sensitive data transmitted without encryption",
+      "remediation": "Use HTTPS for all sensitive data transmission",
+      "fingerprint": "cdc6b2aebe7198b0"
+    }
+  ],
+  "severity_summary": {
+    "critical": 0,
+    "high": 0,
+    "medium": 1,
+    "low": 5,
+    "info": 0
+  },
+  "pentest_state": {
+    "target": "http://127.0.0.1:3000/api/health",
+    "phase": "vulnerability_scanning",
+    "elapsed_time": "0s",
+    "urls_discovered": 0,
+    "urls_tested": 1,
+    "vulnerabilities_found": 6,
+    "vulnerability_breakdown": {
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 5,
+      "info": 0
+    },
+    "attacks_by_type": {
+      "sql_injection": {
+        "total": 1,
+        "success": 0,
+        "failed": 1
+      },
+      "xss": {
+        "total": 1,
+        "success": 0,
+        "failed": 1
+      },
+      "command_injection": {
+        "total": 1,
+        "success": 0,
+        "failed": 1
+      }
+    },
+    "phases_completed": [
+      {
+        "phase": "PentestPhase.INITIALIZATION",
+        "duration": 0.001624
+      },
+      {
+        "phase": "PentestPhase.CRAWLING",
+        "duration": 0.009725
+      },
+      {
+        "phase": "PentestPhase.VULNERABILITY_SCANNING",
+        "duration": 0.034867
+      },
+      {
+        "phase": "PentestPhase.REPORTING",
+        "duration": 0.00778
+      }
+    ]
+  },
+  "end_time": "2026-09-17T06:57:56.490043",
+  "duration": "0:00:00.044622"
+}

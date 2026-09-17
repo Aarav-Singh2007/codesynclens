@@ -5,7 +5,7 @@ export const DEMO_PROJECT_FILES: Record<string, string> = {
 import crypto from 'crypto';
 
 // CRITICAL SECURITY ISSUE: Hardcoded secret key in repository
-const JWT_SECRET_TOKEN = "YOUR_STRIPE_SECRET_KEY";
+const JWT_SECRET_TOKEN = "your_secret_token_here";
 
 export interface UserPayload {
   userId: string;

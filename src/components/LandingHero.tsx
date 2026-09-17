@@ -1,14 +1,16 @@
 import React from 'react';
-import { Github, Upload, Code2, Play, ShieldAlert, Bug, Flame, Scale, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Github, Upload, Code2, Play, ShieldAlert, Bug, Flame, Scale, Sparkles, CheckCircle2, Shield, ArrowRight } from 'lucide-react';
 
 interface LandingHeroProps {
   onSelectMethod: (method: 'GITHUB' | 'UPLOAD' | 'PASTE') => void;
   onLoadDemo: () => void;
+  onOpenSecurityValidation?: () => void;
 }
 
 export const LandingHero: React.FC<LandingHeroProps> = ({
   onSelectMethod,
-  onLoadDemo
+  onLoadDemo,
+  onOpenSecurityValidation
 }) => {
   return (
     <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-16">
@@ -60,8 +62,23 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           </button>
         </div>
 
+        {/* Security Validation Callout */}
+        {onOpenSecurityValidation && (
+          <div className="pt-1">
+            <button
+              onClick={onOpenSecurityValidation}
+              id="btn-hero-security-validation"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900/5 hover:bg-zinc-900/10 border border-zinc-200 text-xs font-semibold text-zinc-800 transition-colors"
+            >
+              <Shield className="w-4 h-4 text-zinc-700" />
+              <span>Launch Dynamic Security Validation (DAST Engine)</span>
+              <ArrowRight className="w-3.5 h-3.5 text-zinc-500" />
+            </button>
+          </div>
+        )}
+
         {/* One-click Demo Button */}
-        <div className="pt-2">
+        <div className="pt-1">
           <button
             onClick={onLoadDemo}
             id="btn-hero-demo-quick"

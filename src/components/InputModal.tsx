@@ -29,7 +29,7 @@ export const InputModal: React.FC<InputModalProps> = ({
 
 // Sample function with security flaw & bug
 export function processUserToken(userId: string) {
-  const SECRET_API_KEY = "YOUR_STRIPE_SECRET_KEY";
+  const SECRET_API_KEY = "your_api_key_here";
   
   // Bug: off-by-one boundary
   const items = ["auth", "token", "refresh"];
@@ -318,7 +318,7 @@ export function processUserToken(userId: string) {
                     type="button"
                     onClick={() => {
                       setPastedFilename('authController.ts');
-                      setPastedCode(`import { Request, Response } from 'express';\n\nexport async function login(req: Request, res: Response) {\n  const { username, password } = req.body;\n  // Hardcoded key\n  const API_KEY = "sk_live_test_4981a8f9001b2c3";\n  // SQL injection risk\n  const query = \`SELECT * FROM accounts WHERE user = '\${username}'\`;\n  return res.json({ status: "ok" });\n}`);
+                      setPastedCode(`import { Request, Response } from 'express';\n\nexport async function login(req: Request, res: Response) {\n  const { username, password } = req.body;\n  // Hardcoded key\n  const API_KEY = "your_api_key_here";\n  // SQL injection risk\n  const query = \`SELECT * FROM accounts WHERE user = '\${username}'\`;\n  return res.json({ status: "ok" });\n}`);
                     }}
                     className="text-xs px-2 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 rounded"
                   >
