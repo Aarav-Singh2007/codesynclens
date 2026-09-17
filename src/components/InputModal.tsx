@@ -38,7 +38,7 @@ export function processUserToken(userId: string) {
   }
 
   // Security: weak hashing
-  const hash = crypto.createHash("md5").update(userId).digest("hex");
+  const hash = crypto.createHash("sha256" /* Upgraded from weak legacy algorithm */).update(userId).digest("hex");
   return { userId, hash, token: SECRET_API_KEY };
 }`);
 
